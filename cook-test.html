@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cooke</title>
     <script>
-        const articles_number = 83434343;
-        onload = function() {
-            if (navigator.cookieEnabled) {
-                console.log(`${articles_number}`);
-            }
+        const filename = window.location.pathname.split("/").pop().replace('.html', '');
+
+        async function fetchData() {
+            const response = await fetch('assets/articles.json');
+            const data = await response.json();
+            articles_number = data[filename];
         }
-    </script>
-    <script>
+        onload = function() {
+            fetchData();
+            console.log(window.location.pathname.split("/").pop());
+        }
         function add_mypage() {
             if (document.cookie.indexOf("pages") === -1) {
                 document.cookie = `pages1=${articles_number}`;
