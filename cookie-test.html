@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cooke</title>
     <script>
+        var favorite = false;
         const filename = window.location.pathname.split("/").pop().replace('.html', '');
 
         async function load_articles_json() {
@@ -16,6 +17,7 @@
             load_articles_json();
             console.log(window.location.pathname.split("/").pop());
             console.log(document.cookie);
+            console.log(favorite);
         }
         function add_mypage() {
             if (document.cookie.indexOf("pages") === -1) {
@@ -28,12 +30,25 @@
             }
             console.log(document.cookie);
         }
+        function push_favorite() {
+            if(favorite==true){favorite=false;}
+            else{favorite=true;};
+            if (favorite == true) {
+                console.log('true');
+                add_mypage();
+                document.getElementById('img_favorite').src="assets/images/favorite.png";
+            } else {
+                console.log('false');
+                document.getElementById('img_favorite').src="assets/images/no_favorite.png";
+            }
+        }
     </script>
 </head>
 <body>
     <h1>クッキーのテスト</h1>
-    <button onclick="add_mypage()">
-        aaaaa
+    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
+        <img id="img_favorite" src="assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
     </button>
+    <br>
 </body>
 </html>
