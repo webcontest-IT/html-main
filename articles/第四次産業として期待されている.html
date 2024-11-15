@@ -8,11 +8,10 @@
     <script>
         let filename;
         window.onload = async function() {
-            fast();
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
             document.getElementById('filename').textContent = filename;
             console.log(filename);
-            // setTimeout(fast(), 2000);
+            fast();
         }
     </script>
 </head>

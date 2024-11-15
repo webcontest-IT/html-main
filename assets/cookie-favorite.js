@@ -8,18 +8,16 @@ async function load_articles_json() {
     console.log('articles_number: ' + articles_number);
 }
 
-onload = function() {
-    load_articles_json();
-    setTimeout(chack_favorite, 20);
-    console.log('favorite');
+async function chack_json() {
+    const response = await fetch('../assets/articles.json');
+    const data = await response.json();
+    articles_number = data[filename];
     console.log('articles_number: ' + articles_number);
+    chack_favorite(data);
 }
 
-function fast(){
-    load_articles_json();
-    setTimeout(chack_favorite, 30);
-    console.log('favorite');
-    console.log('articles_number: ' + articles_number);
+function fast() {
+    setTimeout(chack_json, 20);
 }
 
 function add_mypage() {
