@@ -15,6 +15,7 @@
         onload = function() {
             fetchData();
             console.log(window.location.pathname.split("/").pop());
+            console.log(document.cookie);
         }
         function add_mypage() {
             if (document.cookie.indexOf("pages") === -1) {
