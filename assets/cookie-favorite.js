@@ -17,7 +17,7 @@ onload = function() {
 
 function fast(){
     load_articles_json();
-    setTimeout(chack_favorite, 10);
+    setTimeout(chack_favorite, 30);
     console.log('favorite');
     console.log('articles_number: ' + articles_number);
 }
