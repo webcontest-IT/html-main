@@ -12,10 +12,21 @@
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
             document.getElementById('filename').textContent = filename;
             console.log(filename);
+
+            // JSONファイルを非同期に読み込む
+            try {
+                const response = await fetch('path/to/articles.json');
+                const articles = await response.json();
+                console.log(articles);
+                // 必要に応じてDOMを更新
+            } catch (error) {
+                console.error('Error loading JSON:', error);
+            }
         }
     </script>
 </head>
 <body>
+    <h1 id="filename"></h1>
     <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
         <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
     </button>
