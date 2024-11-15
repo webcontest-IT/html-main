@@ -12,9 +12,7 @@
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
             document.getElementById('filename').textContent = filename;
             console.log(filename);
-            document.body.onload = async function() {
-                fast();
-            }
+            setTimeout(fast(), 20);
         }
     </script>
 </head>

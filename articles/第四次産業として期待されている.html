@@ -12,16 +12,7 @@
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
             document.getElementById('filename').textContent = filename;
             console.log(filename);
-
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            setTimeout(fast(), 20);
         }
     </script>
 </head>
