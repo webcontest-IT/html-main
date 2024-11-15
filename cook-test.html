@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cooke</title>
+    <script>
+        const articles_number = 83434343;
+        onload = function() {
+            if (navigator.cookieEnabled) {
+                console.log(`${articles_number}`);
+            }
+        }
+    </script>
+    <script>
+        function add_mypage() {
+            if (document.cookie.indexOf("pages") === -1) {
+                document.cookie = `pages1=${articles_number}`;
+            } else {
+                const cookies_list = document.cookie.split('; ');
+                const last_cookies_number = cookies_list[cookies_list.length - 1].split('=')[0].substr(5);
+                const new_cookie_number = parseInt(last_cookies_number) + 1;
+                document.cookie = `pages${new_cookie_number}=${articles_number}`;
+            }
+            console.log(document.cookie);
+        }
+    </script>
+</head>
+<body>
+    <h1>クッキーのテスト</h1>
+    <button onclick="add_mypage()">
+        aaaaa
+    </button>
+</body>
+</html>
