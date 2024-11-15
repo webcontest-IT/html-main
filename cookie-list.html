@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cooke</title>
+    <script>
+        const filename = window.location.pathname.split("/").pop().replace('.html', '');
+        let articlesData = null;
+
+        window.onload = async function() {
+            console.log(window.location.pathname.split("/").pop());
+            console.log(document.cookie);
+            await loadArticlesData();
+            await mypages_list_for_cookei();
+        }
+
+        async function loadArticlesData() {
+            const response = await fetch('assets/articles.json');
+            articlesData = await response.json();
+        }
+
+        async function articles_json(value) {
+            if (!articlesData) {
+                await loadArticlesData();
+            }
+            const key = Object.keys(articlesData).find(key => articlesData[key] === parseInt(value));
+            return key;
+        }
+
+        async function mypages_list_for_cookei() {
+            const cookies = document.cookie.split('; ').map(cookie => cookie.split('=')[1]);
+            for (let cookei_num = 0; cookei_num < cookies.length; cookei_num++) {
+                console.log(await articles_json(cookies[cookei_num]));
+                // id属性で要素を取得
+                let textbox_element = document.getElementById('textbox');
+
+                // 新しいHTML要素を作成
+                let new_element = document.createElement('p');
+                new_element.textContent = await articles_json(cookies[cookei_num]);
+
+                // 指定した要素の中の末尾に挿入
+                textbox_element.appendChild(new_element);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>クッキーのテスト</h1>
+    <div id="textbox">
+    </div>
+</body>
+</html>

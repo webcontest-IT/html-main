@@ -7,13 +7,13 @@
     <script>
         const filename = window.location.pathname.split("/").pop().replace('.html', '');
 
-        async function fetchData() {
+        async function load_articles_json() {
             const response = await fetch('assets/articles.json');
             const data = await response.json();
             articles_number = data[filename];
         }
         onload = function() {
-            fetchData();
+            load_articles_json();
             console.log(window.location.pathname.split("/").pop());
             console.log(document.cookie);
         }
