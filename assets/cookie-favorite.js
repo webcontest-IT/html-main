@@ -10,7 +10,7 @@ async function load_articles_json() {
 
 onload = function() {
     load_articles_json();
-    setTimeout(chack_favorite, 10);
+    setTimeout(chack_favorite, 20);
     console.log('favorite');
     console.log('articles_number: ' + articles_number);
 }
