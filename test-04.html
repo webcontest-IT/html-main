@@ -4,27 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .grayout {
-            background-color: rgba(0, 0, 0, 0.5);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        #sidemap {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
 <body>
     <h1>htmlの中にhtmlを埋め込む</h1>
@@ -102,36 +83,5 @@
             </tr>
         </table> 
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const button = document.getElementById('button_sidemap');
-            const sidemap = document.getElementById('sidemap');
-            let grayoutDiv;
-
-            button.addEventListener('click', function() {
-                if (!grayoutDiv) {
-                    document.getElementById("sidemap").style.display = "block";
-                    grayoutDiv = document.createElement('div');
-                    grayoutDiv.className = 'grayout';
-                    document.body.appendChild(grayoutDiv);
-                    sidemap.style.zIndex = 2;
-                } else {
-                    document.getElementById("sidemap").style.display = "none";
-                    document.body.removeChild(grayoutDiv);
-                    grayoutDiv = null;
-                    sidemap.style.zIndex = '';
-                }
-            });
-
-            document.addEventListener('click', function(event) {
-                if (grayoutDiv && !sidemap.contains(event.target) && event.target !== button) {
-                    document.getElementById("sidemap").style.display = "none";
-                    document.body.removeChild(grayoutDiv);
-                    grayoutDiv = null;
-                    sidemap.style.zIndex = '';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
