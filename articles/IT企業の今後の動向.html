@@ -1,35 +1,126 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
-            fast();
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 10vh;width:auto;"></a></div>
+        <div><br></div>
+        <div><a href="sidemap">サイドマップ</a></div>
+        <div><a href="#reference">参考文献　</a></div>
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4>IT企業の今後の動向</h4></a>
+        <a href="#IT業界の市場規模の現状と将来性"><h5>◯IT業界の市場規模の現状と将来性</h5></a>
+        <a href="#IT業界における「人材不足」の課題"><h5>◯IT業界における「人材不足」の課題</h5></a>
+        <a href="#IT業界で近年注目されているトピック5選"><h5>◯IT業界で近年注目されているトピック5選</h5></a>
+    </div>
+
+    <h1 id="title">IT企業の今後の動向</h1>
+    <div id="maintext">
+        <p id="IT業界の市場規模の現状と将来性"><h3>IT業界の市場規模の現状と将来性</h3></p>
+        <p>近年、経済社会のデジタル化が進み、IT業界の市場規模も拡大し続けています。</p>
+        <p>そして、今後も衰えることなく伸びていく可能性が高いです。</p>
+        <p></p>
+        <p>2020年からのコロナ禍はIT業界に大きな影響を及ぼしました。</p>
+        <p>世界中で人と人の接触が制限され、テレワークやオンライン無料通話の普及が進み、</p>
+        <p>今まで以上に経済・社会のデジタル化の重要性がより明らかになりました。</p>
+        <p></p>
+        <p>2年以上続くコロナ禍はビジネス社会、個人の消費行動までオンライン化していきました。</p>
+        <p></p>
+        <p>こういった変化に素早く対応する能力が今まで以上にIT業界で働く人に必要不可欠になっていきます。</p>
+        <p></p>
+        <p></p>
+        <p id="IT業界における「人材不足」の課題"><h3>IT業界における「人材不足」の課題</h3></p>
+        <p></p>
+        <p>2025年には43万人のIT人材が不足すると予想されています。【 2025年の崖 】</p>
+        <p></p>
+        <p>IT市場の急成長に伴い、</p>
+        <p>多くの企業においてlotやクラウドなどの新たな技術を利用するようになりました。</p>
+        <p></p>
+        <p>一方で、既存のシステム（レガシーシステム）から脱却できていない企業が多く、</p>
+        <p>その保守・運用に貴重なIT人材が割り当てられている状況です。</p>
+        <p></p>
+        <p>少子高齢化による労働人口の減少も深刻です。</p>
+        <p>若年層人口の減少とIT業界の市場規模拡大が同時に起こっている中、</p>
+        <p>人材不足はますます問題となっていくでしょう。</p>
+        <p></p>
+        <p></p>
+        <p id="IT業界で近年注目されているトピック5選"><h3>IT業界で近年注目されているトピック5選</h3></p>
+        <p></p>
+        <p></p>
+        <p>DX</p>
+        <p>・企業のビジネス戦略やシステムまでを一新する活動</p>
+        <p>AI</p>
+        <p>・セキュリティや医療・福祉、産業デバイスなどの様々な分野に導入</p>
+        <p>5G</p>
+        <p>・超高速・大容量・超低遅延・超高信頼性・多数同時接続</p>
+        <p>loT</p>
+        <p>・利便性が向上、そしてスムーズな危機管理を行うことも可</p>
+        <p>量子コンピュータ</p>
+        <p>・高度な計算を可能にする新世代のコンピュータ</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p id="XAI"><h3>XAI</h3</p>
+        <p></p>
+        <p>AI技術での課題となっているのが、AIの「ブラックボックス化」です。</p>
+        <p></p>
+        <p>AIによる結果だけが分かり、</p>
+        <p>どんな根拠で判断に至ったのかなど説明できないことが問題となっていきました。</p>
+        <p></p>
+        <p>人が根拠を説明できないと様々な弊害をもたらします。</p>
+        <p></p>
+        <p>例として、</p>
+        <p></p>
+        <p>医療、自動車のような命や安全性に関わる分野では、予測結果を間違えたとき、</p>
+        <p>なぜ間違えたのか分からないと改善点も見つかりません。</p>
+        <p></p>
+        <p></p>
+        <p>この問題を解決する技術が次世代のAI「XAI」です。</p>
+        <p>推定結果のみならず、そのプロセスを人が理解、説明できるようになることでしょう。</p>
+        <p></p>
+        <p>今後はAI技術と同様に、XAIの知識も広げると良いでしょう。</p>
+        
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>

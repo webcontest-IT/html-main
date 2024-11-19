@@ -16,114 +16,8 @@
             console.log(filename);
             load_articles_json();
         }
-
-        function favorite_button() {
-            var button = this;
-            var isFavorite = button.getAttribute('data-favorite') === 'true';
-            var img = button.querySelector('img');
-            if (isFavorite) {
-                button.setAttribute('data-favorite', 'false');
-                img.src = '../assets/images/star_false.png'; // false画像に変更
-                console.log('false');
-                delURL();
-            } else {
-                button.setAttribute('data-favorite', 'true');
-                img.src = '../assets/images/star_true.png'; // true画像に変更
-                console.log('true');
-                addURL();
-            }
-        };
     </script>
-    <style>
-        html[lang="ja"] {
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-        #maintext{
-            background:white;
-            border: 4px solid;
-            border-color:RGB(108, 157, 188);
-            border-radius: 8px;
-            margin: -25px auto; 
-            width: 55%;
-            position: relative;
-            padding: 10px;
-            
-        }
-        #title{
-            background:white;
-            border: 4px solid;
-            border-color:RGB(108, 157, 188);
-            border-radius: 8px;
-            width: 55%;
-            justify-content: center;
-            text-align: center;
-            margin: 8%  auto; 
-            position: relative;
-        }
-        #top_label{
-            position: fixed;
-            background: white;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            margin-bottom: 50px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #top_label a{
-            display: block;
-            margin: 5px;
-            color: black;
-            text-decoration: none;
-            margin: 0 1em;
-        }
-        #button_wrap {
-            display:flex;
-            position: fixed;
-            right: 79%;
-            flex-flow: column;
-            height:300px;
-            margin:0 0 1em;
-        }
-        #button_content {
-            padding:1em;
-            margin:0.5em auto;
-            width:80%;
-        }
-        #table_list{
-            position: fixed;
-            border: 4px solid;
-            border-color:RGB(108, 157, 188);
-            border-radius: 8px;
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            position: fixed;
-            left: 79%;
-            color: black;
-        }
-        #table_list a{
-            display: block;
-            margin: 5px;
-            color: black;
-            text-decoration: none;
-        }
-        #reference{
-            background:white;
-            border: 4px solid;
-            border-color:RGB(108, 157, 188);
-            border-radius: 8px;
-            margin: 5% auto; 
-            width: 55%;
-            position: relative;
-            padding: 10px;
-        }
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
 </head>
 <body style="background:RGB(188, 223, 245);">
     <div id="top_label">
@@ -149,9 +43,9 @@
     </div>
 
     <div id="table_list">
-        <h4>AI開発のIT人材の育成について</h4>
+        <a herf=#top><h4>AI開発のIT人材の育成について</h4></a>
         <a href="#目指す姿"><h5>◯目指す姿</h5></a>
-        <a href="#展開の方向性"><h5>◯展開の���向性</h5></a>
+        <a href="#展開の方向性"><h5>◯展開の方向性</h5></a>
         <a href="#ガイドラインの目的"><h5>◯ガイドラインの目的</h5></a>
     </div>
 
@@ -199,6 +93,5 @@
         <p>・AI開発のIT人材の育成について</p>
         <p>　https://www.meti.go.jp/press/2021/03/20210318001/20210318001.html</p>
     </div>
-    <a>under_label</a> 
 </body>
 </html>

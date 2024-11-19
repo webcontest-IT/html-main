@@ -50,3 +50,20 @@ function delURL() {
         })
         .catch(error => console.error('Error:', error));
 }
+
+function favorite_button() {
+    var button = this;
+    var isFavorite = button.getAttribute('data-favorite') === 'true';
+    var img = button.querySelector('img');
+    if (isFavorite) {
+        button.setAttribute('data-favorite', 'false');
+        img.src = '../assets/images/star_false.png'; // false画像に変更
+        console.log('false');
+        delURL();
+    } else {
+        button.setAttribute('data-favorite', 'true');
+        img.src = '../assets/images/star_true.png'; // true画像に変更
+        console.log('true');
+        addURL();
+    }
+};
