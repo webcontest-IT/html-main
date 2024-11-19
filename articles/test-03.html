@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../assets/favorite.js"></script>
+    <script>
+        function favorite_button(){
+            let favorite_button = document.getElementById('favorite_button');
+            if (favorite_button.textContent == "表示") {
+                favorite_button.textContent = "非表示";
+                addURL();
+            } else {
+                favorite_button.textContent = "表示";
+                delURL();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>favorite_list</h1>
+    <button onclick="addURL()">お気に入り！</button>
+    <button onclick="delURL()">気に食わない！</button>
+    <button onclick="favorite_button()" id="favorite_button">表示</button>
+    <div id="textbox">
+    </div>
+</body>
+</html>

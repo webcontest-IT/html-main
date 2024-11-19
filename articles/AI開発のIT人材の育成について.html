@@ -9,10 +9,6 @@
         let filename;
         window.onload = async function() {
             fast();
-            filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
-            console.log(filename);
-
             // JSONファイルを非同期に読み込む
             try {
                 const response = await fetch('path/to/articles.json');
@@ -26,13 +22,12 @@
     </script>
 </head>
 <body>
-    <a>top_label</a>
-    <h1 id="filename"></h1>
+    <a style="position: fixed;">top_label</a>
     <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
         <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
     </button>
     <br>
-    <a id="maintext" style="width:60wh;position: absolute;right: 40%">
+    <a id="maintext" style="width:60wh;position: absolute;right: 30%;">
         <p>『 目指す姿 』</p>
         <p>データ流通の</p>
         <p>オープン化</p>
