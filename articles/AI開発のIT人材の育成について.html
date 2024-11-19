@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
     <script>
         let filename;
         window.onload = async function() {
@@ -19,41 +20,73 @@
                 console.error('Error loading JSON:', error);
             }
         }
+        function favorite_button(){
+            let favorite_button = document.getElementById('favorite_button');
+            if (favorite_button.textContent == "お気に入り！") {
+                favorite_button.textContent = "気に食わない！";
+                addURL();
+            } else {
+                favorite_button.textContent = "お気に入り！";
+                delURL();
+            }
+        }
     </script>
+    <style>
+        #maintext{
+            background:white;
+            border: 4px solid;
+            border-color:RGB(108, 157, 188);
+            border-radius: 8px;
+
+            position: absolute;
+            left:30%;
+            margin: -25px 0 0 -25px; 
+
+            width: 40%;
+        }
+        #title{
+            background:white;
+            border: 4px solid;
+            border-color:RGB(108, 157, 188);
+            border-radius: 8px;
+            width: 40%;
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
 </head>
-<body>
+<body style="background:RGB(188, 223, 245);">
     <a style="position: fixed;">top_label</a>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
+    <button onclick="push_favorite();" style="background-color: transparent;border: none;">
         <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
     </button>
+    <button onclick="favorite_button()" id="favorite_button">お気に入り！</button>
     <br>
-    <a id="maintext" style="width:60wh;position: absolute;right: 30%;">
+    <h1 id="title">AI開発のIT人材の育成について</h1>
+    <div id="maintext">
         <p>『 目指す姿 』</p>
         <p>データ流通の</p>
         <p>オープン化</p>
-        <p>・企業のデータやAI導入のノウハウ等が広く流通する仕組みになっていてア</p>
-        <p>クセス可能な状態になっている</p>
+        <p>・企業のデータやAI導入のノウハウ等が広く流通する仕組みになっていてアクセス可能な状態になっている</p>
         <p>実装手法の</p>
         <p>体系化</p>
-        <p>・AI社会実装の「型」が物理的空間・アルゴリズムともに明確になっている</p>
-        <p>（「教材」ができていて、アクセス可能な状態）</p>
+        <p>・AI社会実装の「型」が物理的空間・アルゴリズムともに明確になっている（「教材」ができていて、アクセス可能な状態）</p>
         <p>社会実装を推進する</p>
         <p>仕組みの構築</p>
-        <p>・体系化された実装手法を生かし、多くの企業やAI人材などが有機的につな</p>
-        <p>がり、導入が自発的に促進される（＝共進）ような仕組み</p>
+        <p>・体系化された実装手法を生かし、多くの企業やAI人材などが有機的につながり、導入が自発的に促進される（＝共進）ような仕組み</p>
         <p></p>
         <p></p>
         <p>展開の方向性（候補）</p>
         <p></p>
         <p>〈 目的・対象の拡大 〉</p>
         <p></p>
-        <p>・目的を人材育成のみに限定しないデータオープン化に向けた検討</p>
-        <p>・AIに限らず、広くDXを見据えてデータ利活用に重要な要素の検討</p>
+        <p>　・目的を人材育成のみに限定しないデータオープン化に向けた検討</p>
+        <p>　・AIに限らず、広くDXを見据えてデータ利活用に重要な要素の検討</p>
         <p></p>
         <p>〈 手法の拡大・深堀り 〉</p>
         <p></p>
-        <p>・海外事例調査を通じた、データ取引を促進するスキームの深堀り</p>
-        <p>・個人情報を含むことを前提とした論点の洗い出し・契約雛形の作成</p>
+        <p>　・海外事例調査を通じた、データ取引を促進するスキームの深堀り</p>
+        <p>　・個人情報を含むことを前提とした論点の洗い出し・契約雛形の作成</p>
         <p>・データ提供にあたり必要な具体的な加工方法の提示</p>
         <p></p>
         <p>〈 全体像の俯瞰 〉</p>
@@ -66,7 +99,7 @@
         <p>人材の育成を目的とし、教材作成等も念頭に置きながら実データの提供促進に関わる論点を検討</p>
         <p>広義には広く企業によるデータ提供及び利活用においても、</p>
         <p>論点や考え方の方向性は適用可</p>
-    </a>
+    </div>
     <a>under_label</a> 
 </body>
 </html>
