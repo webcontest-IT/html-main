@@ -6,9 +6,9 @@
     <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
     <script src="../assets/favorite.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
@@ -35,27 +35,30 @@
         };
     </script>
     <style>
+        html[lang="ja"] {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
         #maintext{
             background:white;
             border: 4px solid;
             border-color:RGB(108, 157, 188);
             border-radius: 8px;
             margin: -25px auto; 
-            width: 40%;
+            width: 55%;
             position: relative;
-            top: 50px;
+            padding: 10px;
+            
         }
         #title{
             background:white;
             border: 4px solid;
             border-color:RGB(108, 157, 188);
             border-radius: 8px;
-            width: 40%;
+            width: 55%;
             justify-content: center;
             text-align: center;
-            margin: 25px auto;
+            margin: 7% auto; 
             position: relative;
-            top: 50px;
         }
         #top_label{
             position: fixed;
@@ -64,6 +67,7 @@
             top: 0;
             left: 0;
             z-index: 1;
+            margin-bottom: 50px; 
         }
         #button_wrap {
             display:flex;
@@ -77,41 +81,78 @@
             margin:0.5em auto;
             width:80%;
         }
+        #table_list{
+            position: fixed;
+            border: 4px solid;
+            border-color:RGB(108, 157, 188);
+            border-radius: 8px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            position: fixed;
+            left: 79%;
+            color: black;
+        }
+        #table_list a{
+            display: block;
+            margin: 5px;
+            color: black;
+            text-decoration: none;
+        }
+        #reference{
+            background:white;
+            border: 4px solid;
+            border-color:RGB(108, 157, 188);
+            border-radius: 8px;
+            margin: 5% auto; 
+            width: 55%;
+            position: relative;
+            padding: 10px;
+        }
     </style>
 </head>
 <body style="background:RGB(188, 223, 245);">
     <div id="top_label">
         <a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: auto;width: 5%;"></a>
     </div>
+
     <div id="button_wrap">
         <div id="button_content">
             <button onclick="push_favorite();" style="background-color: transparent;border: none;">
                 <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
             </button>
-            <h2 style="text-align: center;">いいね</h2>
         </div>
         <div id="button_content">
             <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
                 <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
             </button>
-            <h2 style="text-align: center;">お気に入り</h2>
         </div>
     </div>
+
+    <div id="table_list">
+        <h4>AI開発のIT人材の育成について</h4>
+        <a href="#目指す姿"><h5>◯目指す姿</h5></a>
+        <a href="#展開の方向性"><h5>◯展開の方向性</h5></a>
+        <a href="#ガイドラインの目的"><h5>◯ガイドラインの目的</h5></a>
+    </div>
+
     <h1 id="title">AI開発のIT人材の育成について</h1>
     <div id="maintext">
-        <p>『 目指す姿 』</p>
+        <p  id="目指す姿"><h3>『 目指す姿 』</h3></p>
         <p>データ流通の</p>
         <p>オープン化</p>
-        <p>・企業のデータやAI導入のノウハウ等が広く流通する仕組みになっていてアクセス可能な状態になっている</p>
+        <p>・企業のデータやAI導入のノウハウ等が広く流通する仕組みになっていて<br>　アクセス可能な状態になっている</p>
         <p>実装手法の</p>
         <p>体系化</p>
-        <p>・AI社会実装の「型」が物理的空間・アルゴリズムともに明確になっている（「教材」ができていて、アクセス可能な状態）</p>
+        <p>・AI社会実装の「型」が物理的空間・アルゴリズムともに明確になっている<br>　（「教材」ができていて、アクセス可能な状態）</p>
         <p>社会実装を推進する</p>
         <p>仕組みの構築</p>
-        <p>・体系化された実装手法を生かし、多くの企業やAI人材などが有機的につながり、導入が自発的に促進される（＝共進）ような仕組み</p>
+        <p>・体系化された実装手法を生かし、多くの企業やAI人材などが有機的につながり、<br>　導入が自発的に促進される（＝共進）ような仕組み</p>
         <p></p>
         <p></p>
-        <p>展開の方向性（候補）</p>
+        <p  id="展開の方向性"><h3>展開の方向性（候補）</h3></p>
         <p></p>
         <p>〈 目的・対象の拡大 〉</p>
         <p></p>
@@ -128,12 +169,18 @@
         <p></p>
         <p>・データ関連ガイドライン・手引き全体像の整理</p>
         <p></p>
-        <p>ガイドラインの目的</p>
+        <p  id="ガイドラインの目的"><h3>ガイドラインの目的</h3></p>
         <p></p>
         <p>一義的には</p>
-        <p>人材の育成を目的とし、教材作成等も念頭に置きながら実データの提供促進に関わる論点を検討</p>
+        <p>人材の育成を目的とし、<br>教材作成等も念頭に置きながら実データの提供促進に関わる論点を検討</p>
         <p>広義には広く企業によるデータ提供及び利活用においても、</p>
         <p>論点や考え方の方向性は適用可</p>
+    </div>
+    <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+        <p>・AI開発のIT人材の育成について</p>
+        <p>　https://www.meti.go.jp/press/2021/03/20210318001/20210318001.html</p>
     </div>
     <a>under_label</a> 
 </body>
