@@ -37,10 +37,10 @@
             border: 4px solid;
             border-color:RGB(108, 157, 188);
             border-radius: 8px;
-
             margin: -25px auto; 
-
             width: 40%;
+            position: relative;
+            top: 50px;
         }
         #title{
             background:white;
@@ -51,6 +51,8 @@
             justify-content: center;
             text-align: center;
             margin: 25px auto;
+            position: relative;
+            top: 50px;
         }
         #top_label{
             position: fixed;
@@ -58,6 +60,19 @@
             width: 100%;
             top: 0;
             left: 0;
+            z-index: 1;
+        }
+        #button_wrap {
+            display:flex;
+            position: fixed;
+            flex-flow: column;
+            height:300px;
+            margin:0 0 1em;
+        }
+        #button_content {
+            padding:1em;
+            margin:0.5em auto;
+            width:80%;
         }
     </style>
 </head>
@@ -65,13 +80,20 @@
     <div id="top_label">
         <a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: auto;width: 5%;"></a>
     </div>
-    <button onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
-    </button>
-    <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
-        <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
-    </button>
-    <br>
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+            </button>
+            <h2 style="text-align: center;">いいね</h2>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+            </button>
+            <h2 style="text-align: center;">お気に入り</h2>
+        </div>
+    </div>
     <h1 id="title">AI開発のIT人材の育成について</h1>
     <div id="maintext">
         <p>『 目指す姿 』</p>

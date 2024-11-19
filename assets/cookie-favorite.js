@@ -45,11 +45,11 @@ function chack_favorite() {
     const cookies_list = document.cookie ? document.cookie.split('; ') : [];
     if (cookies_list.some(cookie => cookie.split('=')[1] == String(articles_number))) {
         console.log('aaa');
-        document.getElementById('img_good').src = "../assets/images/hart_false.png";
+        document.getElementById('img_good').src = "../assets/images/hart_true.png";
         favorite = true;
     } else {
         console.log('fff');
-        document.getElementById('img_good').src = "../assets/images/hart_true.png";
+        document.getElementById('img_good').src = "../assets/images/hart_false.png";
         favorite = false;
     }
 }
