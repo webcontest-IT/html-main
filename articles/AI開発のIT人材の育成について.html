@@ -9,27 +9,27 @@
     <script>
         let filename;
         window.onload = async function() {
-            fast();
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
+            console.log(filename);
+            load_articles_json();
         }
-        function favorite_button(){
-            let favorite_button = document.getElementById('favorite_button');
-            if (favorite_button.textContent == "お気に入り！") {
-                favorite_button.textContent = "気に食わない！";
-                addURL();
-            } else {
-                favorite_button.textContent = "お気に入り！";
+
+        function favorite_button() {
+            var button = this;
+            var isFavorite = button.getAttribute('data-favorite') === 'true';
+            var img = button.querySelector('img');
+            if (isFavorite) {
+                button.setAttribute('data-favorite', 'false');
+                img.src = '../assets/images/star_false.png'; // false画像に変更
+                console.log('false');
                 delURL();
+            } else {
+                button.setAttribute('data-favorite', 'true');
+                img.src = '../assets/images/star_true.png'; // true画像に変更
+                console.log('true');
+                addURL();
             }
-        }
+        };
     </script>
     <style>
         #maintext{
@@ -38,8 +38,6 @@
             border-color:RGB(108, 157, 188);
             border-radius: 8px;
 
-            position: absolute;
-            left:30%;
             margin: -25px auto; 
 
             width: 40%;
@@ -54,14 +52,25 @@
             text-align: center;
             margin: 25px auto;
         }
+        #top_label{
+            position: fixed;
+            background: white;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
     </style>
 </head>
 <body style="background:RGB(188, 223, 245);">
-    <a style="position: fixed;">top_label</a>
+    <div id="top_label">
+        <a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: auto;width: 5%;"></a>
+    </div>
     <button onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
+        <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
     </button>
-    <button onclick="favorite_button()" id="favorite_button">お気に入り！</button>
+    <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
+        <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+    </button>
     <br>
     <h1 id="title">AI開発のIT人材の育成について</h1>
     <div id="maintext">

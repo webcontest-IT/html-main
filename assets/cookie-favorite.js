@@ -4,20 +4,11 @@ let articles_number;
 async function load_articles_json() {
     const response = await fetch('../assets/articles.json');
     const data = await response.json();
-    articles_number = data[filename];
-    console.log('articles_number: ' + articles_number);
-}
-
-async function chack_json() {
-    const response = await fetch('../assets/articles.json');
-    const data = await response.json();
-    articles_number = data[filename];
-    console.log('articles_number: ' + articles_number);
-    chack_favorite(data);
-}
-
-function fast() {
-    setTimeout(chack_json, 20);
+    setTimeout(() => {
+        articles_number = data[filename];
+        console.log('articles_number: ' + articles_number);
+        chack_favorite(); // ロードが終わった後に実行
+    }, 50); // 1秒の遅延を追加
 }
 
 function add_mypage() {
@@ -39,11 +30,11 @@ function push_favorite() {
     favorite = !favorite;
     if (favorite) {
         console.log('true');
+        document.getElementById('img_good').src = "../assets/images/hart_true.png";
         add_mypage();
-        document.getElementById('img_favorite').src = "../assets/images/favorite.png";
     } else {
         console.log('false');
-        document.getElementById('img_favorite').src = "../assets/images/no_favorite.png";
+        document.getElementById('img_good').src = "../assets/images/hart_false.png";
         const cookies_list = document.cookie ? document.cookie.split('; ') : [];
         var del_num = cookies_list.find(cookie => cookie.split('=')[1] === String(articles_number)).split('=')[0];
         document.cookie = `${del_num}=; max-age=0`;
@@ -54,11 +45,11 @@ function chack_favorite() {
     const cookies_list = document.cookie ? document.cookie.split('; ') : [];
     if (cookies_list.some(cookie => cookie.split('=')[1] == String(articles_number))) {
         console.log('aaa');
-        document.getElementById('img_favorite').src = "../assets/images/favorite.png";
+        document.getElementById('img_good').src = "../assets/images/hart_false.png";
         favorite = true;
     } else {
         console.log('fff');
-        document.getElementById('img_favorite').src = "../assets/images/no_favorite.png";
+        document.getElementById('img_good').src = "../assets/images/hart_true.png";
         favorite = false;
     }
 }
