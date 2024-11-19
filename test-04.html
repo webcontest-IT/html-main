@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grayout {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        #sidemap {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>htmlの中にhtmlを埋め込む</h1>
+    <button id="button_sidemap">aaaaa</button>
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td>ホーム画面</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>IT系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td>第四次産業として期���されている</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>つくば市におけるRPA導入共同研究</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>IT企業の今後の動向</td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td>IT需要の変化</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>日本と海外のIT系人材の給与水準の差</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>AI開発のIT人材の育成について</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>セキュリティー系の人材育成について</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>NTTパビリオン×IOWN</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>小売市場へにも進むDXの流れ</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td>企業と高校生がタッグを組んで商品開発</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>IT系の資格</td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td>インターンでの実際の企業の話</td>
+            </tr>
+        </table> 
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.getElementById('button_sidemap');
+            const sidemap = document.getElementById('sidemap');
+            let grayoutDiv;
+
+            button.addEventListener('click', function() {
+                if (!grayoutDiv) {
+                    document.getElementById("sidemap").style.display = "block";
+                    grayoutDiv = document.createElement('div');
+                    grayoutDiv.className = 'grayout';
+                    document.body.appendChild(grayoutDiv);
+                    sidemap.style.zIndex = 2;
+                } else {
+                    document.getElementById("sidemap").style.display = "none";
+                    document.body.removeChild(grayoutDiv);
+                    grayoutDiv = null;
+                    sidemap.style.zIndex = '';
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                if (grayoutDiv && !sidemap.contains(event.target) && event.target !== button) {
+                    document.getElementById("sidemap").style.display = "none";
+                    document.body.removeChild(grayoutDiv);
+                    grayoutDiv = null;
+                    sidemap.style.zIndex = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
