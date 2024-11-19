@@ -57,7 +57,7 @@
             width: 55%;
             justify-content: center;
             text-align: center;
-            margin: 7% auto; 
+            margin: 8% auto; 
             position: relative;
         }
         #top_label{
@@ -68,10 +68,21 @@
             left: 0;
             z-index: 1;
             margin-bottom: 50px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #top_label a{
+            display: block;
+            margin: 5px;
+            color: black;
+            text-decoration: none;
+            margin: 0 1em;
         }
         #button_wrap {
             display:flex;
             position: fixed;
+            right: 79%;
             flex-flow: column;
             height:300px;
             margin:0 0 1em;
@@ -113,7 +124,10 @@
 </head>
 <body style="background:RGB(188, 223, 245);">
     <div id="top_label">
-        <a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: auto;width: 5%;"></a>
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 10vh;width:auto;"></a></div>
+        <div><br></div>
+        <div><a href="sidemap">サイドマップ</a></div>
+        <div><a href="#reference">参考文献　</a></div>
     </div>
 
     <div id="button_wrap">
