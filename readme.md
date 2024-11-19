@@ -14,3 +14,12 @@ web/
 │   ├── images/  
 │   └── stylesheets/  
 └── ...  # その他のファイルやフォルダ
+
+## index.html(image)
+![index.html(イメージ)](/website_image/index.png)
+## articles(image)
+![articles.html(イメージ)](/website_image/articles.png)
+![articles.html(イメージ)](/website_image/articles_.png)
+## sidemap(image)
+![サイドマップ.html(イメージ)](/website_image/sidemap_fix.png)
+![サイドマップ.html(イメージ)](/website_image/sidemap_flow.png) 
