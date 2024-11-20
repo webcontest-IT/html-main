@@ -19,10 +19,10 @@ function add_mypage() {
         document.cookie = `${del_num}=; max-age=0`;
     } else {
         console.log('not yet');
-        const last_cookies_number = cookies_list.length > 0 ? parseInt(cookies_list[cookies_list.length - 1].split('=')[0].substr(5)) : 0;
-        // console.log(cookies_list[cookies_list.length-1]); // 最後のクッキーの値を確認
-        console.log(cookies_list[cookies_list.length-2]); // '=' で分割した結果を確認
-        // console.log(Number(cookies_list[cookies_list.length].split('=')[0].substr(5))+2); // 分割後の最初の部分を確認
+        const pages_cookies = cookies_list.filter(cookie => cookie.startsWith('pages'));
+        const last_cookies_number = pages_cookies.length > 0 
+            ? Math.max(...pages_cookies.map(cookie => parseInt(cookie.split('=')[0].substr(5)))) 
+            : 0;
 
         const new_cookie_number = last_cookies_number + 1;
         document.cookie = `pages${new_cookie_number}=${articles_number}`;
