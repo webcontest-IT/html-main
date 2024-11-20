@@ -1,35 +1,199 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
-            fast();
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4>IT系の資格</h4></a>
+        <a href="#IPA"><h5>◯IPA</h5></a>
+        <a href="#IPA事業の３つの柱"><h5>◯IPA事業の３つの柱</h5></a>
+        <a href="#デジタル化を牽引するデジタル人材を育成"><h5>◯デジタル化を牽引するデジタル人材を育成</h5></a>
+        <a href="#ITパスポート試験(iパス)の活用状況"><h5>◯ITパスポート試験(iパス)の活用状況</h5></a>
+        <a href="#数理・DS・AI教育プログラム認定制度への対応"><h5>◯数理・DS・AI教育プログラム認定制度への対応</h5></a>
+        <a href="#試験関連"><h5>◯試験関連</h5></a>
+        <a href="#reference"><h5>◯参考文献</h5></a>
+    </div>
+
+    <h1 id="title"> IT系の資格</h1>
+    <div id="maintext">
+        <p id="IPA"><h3>IPA</h3></p>
+        <table border="1">
+            <tr>
+              <td>Mission</td>
+              <td>・デジタルで豊かな社会に</td>
+            </tr>
+            <tr>
+              <td>Vision</td>
+              <td>・新たな基盤づくりを　・知が集う場へ</td>
+            </tr>
+            <tr>
+              <td>Value</td>
+              <td>・世界に挑む　・共に成長する　・現場の情報を集める<br>・デジタルで変わる　・最善を尽くす</td>
+            </tr>
+        </table>
+        <p id="IPA事業の３つの柱"><h3>IPA事業の３つの柱</h3></p>
+        <p></p>
+        <p>〇デジタル基盤提供</p>
+        <p></p>
+        <p>・社会全体のアーキテクチャを設計・構想しSocirty 5.0 実現のための基盤提供</p>
+        <p></p>
+        <p>〇デジタル人材育成</p>
+        <p></p>
+        <p>・デジタル化・DXを推進するデジタル人材の育成を加速</p>
+        <p></p>
+        <p>〇サイバーセキュリティ確保</p>
+        <p></p>
+        <p>・リアルとサイバーの融合でリスクが高まるサイバーセキュリティ強化</p>
+        <p></p>
+        <p>デジタル技術の利用促進を通じて豊かな暮らしを実現するために上記の３つによる業務運営効率化を目指しています。</p>
+        <p></p>
+        <p></p>
+        <p id="デジタル化を牽引するデジタル人材を育成"><h3>デジタル化を牽引するデジタル人材を育成</h3></p>
+        <p></p>
+        <p>|　〇イノベーション人材育成 (未踏事業)　|</p>
+        <p>|　〇産業サイバーセキュリティ人材育成　|</p>
+        <p>|　〇スキル標準　　　　　　　　　　　　|</p>
+        <p>|　〇組織・スキル変革の推進　　　　　　|</p>
+        <p>|　〇国家試験　情報処理技術者試験　　　|</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p id="ITパスポート試験(iパス)の活用状況"><h3>ITパスポート試験(iパス)の活用状況</h3></p>
+        <p></p>
+        <p>〇iパスの応募者数は2022年度は過去最高 253,159人 ( 前年度比103.6% )そして、2023年度は前年同期　比で応募者数が増加しています。</p>
+        <p>〇生成AIに対応してシラバスを改訂するなど、最新動向を試験内容に随時反映中です。</p>
+        <p></p>
+        <p></p>
+        <p>〇大学生でiパスを取得してる人もいるため焦る必要はない</p>
+        <p></p>
+        <p></p>
+        <p id="数理・DS・AI教育プログラム認定制度への対応"><h3>数理・DS・AI教育プログラム認定制度への対応</h3></p>
+        <p></p>
+        <p>〇FEについても、今後、応用基礎レベルモデルカリキュラムに対応した形に見直す予定です。</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p id="試験関連"><h3>試験関連</h3></p>
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>

@@ -1,25 +1,176 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-            fast();
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4>IT系の資格</h4></a>
+        <a href="#産業革命"><h5>◯産業革命</h5></a>
+        <a href="#技術革新により期待されること"><h5>◯技術革新により期待されること</h5></a>
+        <a href="#諸外国も含め,流れとして取り組みが開始している具体例"><h5>◯諸外国も含め,流れとして取り組みが開始している具体例</h5></a>
+        <a href="#雇用の拡大につなげるための課題"><h5>◯雇用の拡大につなげるための課題</h5></a>
+        <a href="#reference"><h5>◯参考文献</h5></a>
+    </div>
+
+    <h1 id="title">第４次産業革命について</h1>
+    <div id="maintext">
+        <p id="産業革命"><h3>産業革命</h3></p>
+        <p>第〇次</p>
+        <p>１：水力や蒸気機関による工場の機械化</p>
+        <p>↳機械化</p>
+        <p>２：電力を用いた大量生産</p>
+        <p>↳効率化</p>
+        <p>３：電子工学や情報技術を用いた一層のオートメーション化</p>
+        <p>↳自動化</p>
+        <p>４：いくつかのコアとなる技術革新</p>
+        <p>↳最適化</p>
+        <p id="技術革新により期待されること"><h3>技術革新により期待されること</h3></p>
+        <p>第４次産業技術革新では次の①～③までのことが可能になると考えられています。</p>
+        <p>①：大量生産・ここにカスタマイズされた生産・サービスの提供</p>
+        <p>②：既存の資源・資産の効率的な活用</p>
+        <p>③：AI、ロボットによる従来人間に夜って行われていた労働の補助・代替など</p>
+        <p>企業などの生産者側 </p>
+        <p> 財・サービスの生産・提供のあり方が大きく変化し、生産効率性が飛躍的に向上する可能性があります。</p>
+        <p>消費者側</p>
+        <p>既存の財・サービスを今までよりも低価格で好きな時に適量購入できるだけでなく、 潜在的に欲 していた新しい財・サービスをも享受できることが期待されます。</p>
+        <p id="諸外国も含め,流れとして取り組みが開始している具体例"><h3>諸外国も含め,流れとして取り組みが開始している具体例</h3></p>
+        <p>①：財・サービスの生産提供に際してデータの解析結果を様々な形で活用</p>
+        <p>②：シェアリング・エコノミー</p>
+        <p>・ネットを通じて,サービス利用者と提供者を素早くマッチング</p>
+        <p>・個人が保有する遊休資産を他者に対して提供したりするサービス</p>
+        <p>民泊サービス</p>
+        <p>↳住宅の空き家等を活用</p>
+        <p>ライドシェア</p>
+        <p>↳一般ドライバーの自家用車に乗っての移動</p>
+        <p>スキルシェアリング</p>
+        <p>↳個人の持つ専門的スキルを空き時間に提供</p>
+        <p>駐車場シェアリング</p>
+        <p>↳空いている駐車スペースを活用</p>
+        <p>サービス分類：主な５つ　空間・モノ・移動・スキル・お金</p>
+        <p>上記のような事例はすでに取り組みが始まっています。</p>
+        <p id="雇用の拡大につなげるための課題"><h3>雇用の拡大につなげるための課題</h3></p>
+        <p>１：新規需要の拡大につながるイノベーションを促進することです。そのために、たゆまぬイノベーションによって新たな財やサービスを創出し続けることが重要です。</p>
+        <p>２：AIやロボットの導入による省力化の影響に対して新たな雇用が生まれる部門へと円滑な労働移動を図ることが重要です。</p>
+        <p>３：新たな産業革命に見合った働き方の改革です。効率的な働き方・テレワークの拡大・個人によるシェアリング・サービスの提供などに対応した働き方改革が重要になっていきます</p>
+        <p>４：新技術に対応できるスキル向上を企図した能力開発である。大きく変化する技術の波に対し、企業外部の能力開発の機会を拡充していくことが重要です。</p>
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>

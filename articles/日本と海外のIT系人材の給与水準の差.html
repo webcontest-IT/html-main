@@ -1,25 +1,150 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>日本と海外のIT系人材の給与水準の差</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-            fast();
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4> IT需要の変化</h4></a>
+        <a href="#IT人材が従事する企業の偏在状況"><h5>◯IT人材が従事する企業の偏在状況</h5></a>
+        <a href="#デジタル人材の報酬水準"><h5>◯デジタル人材の報酬水準</h5></a>
+        <a href="#DXを担うIT人材の給与水準"><h5>◯DXを担うIT人材の給与水準</h5></a>
+        <a href="#デジタル人材と従来型人材の学歴・給与分布の違い"><h5>◯デジタル人材と従来型人材の学歴・給与分布の違い</h5></a>
+        <a href="#reference"><h5>◯参考文献</h5></a>
+    </div>
+
+    <h1 id="title"> 日本と海外のIT系人材の給与水準の差</h1>
+    <div id="maintext">
+        <p id="IT人材が従事する企業の偏在状況"><h3>人材が従事する企業の偏在状況</h3></p>
+        <p>・ 日本は各国と比較して、IT人材がIT関連企業に従事する割合が高く、ユーザー企業に従事する割合が低いです。</p>
+        <p>・東京のIT企業に人材集中により、地域のデジタル化を推進するIT人材の不足が課題となっています。</p>
+        <p id="デジタル人材の報酬水準"><h3>デジタル人材の報酬水準</h3></p>
+        <p>・海外では、AI・データサイエンス等に関する高いスキルを持つデジタル人材の採用の際に、高額の報酬水準を提示する例が増えています。こうした流れを受けて、日本でも、優秀なデジタル人材の新卒・中途採用を行う際に、通常よりも高い報酬水準を設定する例がみられるようになっています。</p>
+        <p>・特に高いデジタル技術を持つ新卒人材に対して1,000万円以上を提示する可能性がある企業事例は、一律初任給・年功序列などの日本の伝統的な給与体系が崩壊しつつある事例として、注目を集めています。</p>
+        <p id="DXを担うIT人材の給与水準"><h3>DXを担うIT人材の給与水準</h3></p>
+        <p>・DXを進めているユーザー企業においても、IT人材の給与水準は、全社的な給与水準とほぼ変わらない傾向が見られています。</p>
+        <p id="デジタル人材と従来型人材の学歴・給与分布の違い"><h3>デジタル人材と従来型人材の学歴・給与分布の違い</h3></p>
+        <p>・「先端IT従事者」と「先端IT非従事者」の年収については、下図のような差がみられています。</p>
+        <p>・「先端IT従事者」については、「大学」や「大学院」（特に「大学院</p>
+        <p>（修士課程）」）の割合が高くなっているのが下記のグラフからわかります。</p>
+        <p>・「先端IT従事者」の最も多い年収区分は「1,000〜1,500万円」となっています。</p>
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>

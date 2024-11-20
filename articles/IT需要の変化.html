@@ -1,35 +1,153 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
-            fast();
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4> IT需要の変化</h4></a>
+        <a href="#ITサービス需要の変化"><h5>◯ITサービス需要の変化</h5></a>
+        <a href="#IT人材需要の変化"><h5>◯IT人材需要の変化</h5></a>
+        <a href="#海外IT人材と日本のIT人材のスキル標準レベルの比較"><h5>◯海外IT人材と日本のIT人材のスキル標準レベルの比較</h5></a>
+        <a href="#IT人材にとっての学習・教育機会創出の重要性"><h5>◯IT人材にとっての学習・教育機会創出の重要性</h5></a>
+        <a href="#reference"><h5>◯参考文献</h5></a>
+    </div>
+
+    <h1 id="title"> IT需要の変化</h1>
+    <div id="maintext">
+        <p id="ITサービス需要の変化"><h3>ITサービス需要の変化</h3></p>
+        <p>・従来型のITサービス市場の需要構造が変化しつつある状況です。クラウド活用の進展に伴い、従来型の情報システム開発需要が減少する一方、IoT/AI等に係るIT投資の伸びが予想されています。</p>
+        <p>・各調査会社の将来見通しをもとに、2030年までの中長期のIT市場の動向を推計すると従来型のITサービス市場が2020年以降減少するのに対し、第3のプラットフォーム市場が大幅に増加し、2020年代後半には、ITサービス市場の過半数を超えると予想されている。</p>
+        <p id="IT人材需要の変化"><h3>IT人材需要の変化</h3></p>
+        <p>・若年層の人口減少に伴って、2019年をピークにIT関連産業への入職者は退職者を下回り、IT人材は減少に向かうと予想されています。</p>
+        <p>・IT人材の平均年齢は2030年まで上昇の一途をたどり、高齢化が進展することも予想されています。</p>
+        <p>・労働集約業態となっている日本のIT人材の低生産性を前提としたとき、将来的に40〜80万人の規模で不足が生じる懸念があることも試算されました。</p>
+        <p>・IT人材不足は2030年時点で最高約80万人規模でIT人材不足が生じる懸念があることが試算されています。</p>
+        <p>・平均的な能力やスキルを持つIT人材の量の需要から、新たな技術に対応して高付加価値を生み出すIT人材の質の需要が伸びると予想されています。</p>
+        <p id="海外IT人材と日本のIT人材のスキル標準レベルの比較"><h3>海外IT人材と日本のIT人材のスキル標準レベルの比較</h3></p>
+        <p>・世界的な規模でみても、日本のIT人材はレベルアップが必要な状況にあります。</p>
+        <p>・平均レベルの高さが、各国のIT関連職種や業種の競争力の高さにつながり、結果として高い給与水準が実現されている可能性も考えられています。</p>
+        <p id="IT人材にとっての学習・教育機会創出の重要性"><h3>IT人材にとっての学習・教育機会創出の重要性</h3></p>
+        <p>・技術の進歩が速いIT関連業界で活躍するIT人材にとって、自らスキルアップするための意欲や取組は非常に重要です。</p>
+        <p>・個々のIT人材に対する十分な教育・研修の機会を、企業が自社だけで提供することは、もはや難しくなっています。IT人材個人は企業が提供する機会・手段を十分に活用するだけではなく、自ら積極的に学習の機会・手段を模索し、活用することが重要となっています。</p>
+        <p>・具体的な取組については、WEB上での情報収集は積極的に行っているが、WEB上で開講される教育・研修の受講、社外の研修・セミナーやコミュニティ活動への参加をしている人材の割合は、他国よりもかなり少ない。</p>        
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>
