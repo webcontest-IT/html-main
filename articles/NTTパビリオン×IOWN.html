@@ -1,35 +1,168 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
-            fast();
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this, articles_number);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4> NTTパビリオン×IOWN</h4></a>
+        <a href="#大阪万博のNTTの出展物"><h5>◯大阪万博のNTTの出展物</h5></a>
+        <a href="#IOWNとは"><h5>◯IOWNとは</h5></a>
+        <a href="#IOWN1.0とは"><h5>◯IOWN1.0とは</h5></a>
+        <a href="#NTTが本当に万博で発表したいこと"><h5>◯NTTが本当に万博で発表したいこと</h5></a>
+        <a href="#reference"><h5>◯参考文献</h5></a>
+    </div>
+
+    <h1 id="title"> NTTパビリオン×IOWN</h1>
+    <div id="maintext">
+        <p id="#大阪万博のNTTの出展物"><h3>大阪万博のNTTの出展物</h3></p>
+        <p>NTTは昔の日本電信電話公社が民営化したものです。</p>
+        <p>すぐつながる電話を目指し様々な取り組みを行いました。</p>
+        <p>そして自動式壁掛電話機に始まりポケベル、そしてインターネット接続サービスのOCNの提供も始めました。</p>
+        <p>iモードのサービスを開始しました。</p>
+        <p>そんなNTTパビリオンが大阪万博でパビリオンを出店することになりました。</p>
+        <p></p>
+        <p>題材としては、IOWN✖︎空間・感覚共有です</p>
+        <p></p>
+        <p id="#IOWNとは"><h3>IOWNとは</h3></p>
+        <p>IOWNとはネットワークの通信量の増加に合わせて通信を行うだけで必要な電気量が増大したこの社会に終止符を打つためにNTTをはじめ、IntelやCiscoといった大手会社が参加しています。</p>
+        <p>そもそもIOWNとは何かを解説していきます。</p>
+        <p>近年テレワークなどでインターネットで通信するだけでも電力を使うようになりました。</p>
+        <p>そしてそれは年々増えていくと予想されます。</p>
+        <p>従来のネットワークでは、コアネットワークからなる根幹的なネットワークからメトロネットワークと言うならば中型ネットワークを通じて個人ネットワークへとつながると言う仕組みです。</p>
+        <p>この中でメトロとコアとの間は高速な光ファイバーネットワークで接続されており、</p>
+        <p>コアの機械とメトロの機械では、装置から光に変換しその光からまた装置の電気信号へと変化する方式をとっています。これにより拠点では扱いやすい電気信号で処理し、長距離通信には高速な光ファイバーと適切な役割分担ができているように感じます、しかし少し非効率だとは感じませんか？</p>
+        <p>やはり電気通信か光信号のどちらかに統一した方がより効率的だと感じます。</p>
+        <p>しかし電気信号は遠くに信号を飛ばそうとすると、高い電圧と多くの電力ロスと戦うこととなります。</p>
+        <p>だが、光信号ならば光信号に対応できるトランジスタが必要になります。</p>
+        <p>どちらも多くの課題があるが、そこをNTTが第一段階をクリアしました。</p>
+        <p>ナノ光受光器とナノ光変調器を用いて光入力に応じて違う光出力をすることに成功しました。</p>
+        <p>そしてこの光トランジスタを用いてIOWN1.0を実現したいとNTTは語っていました。</p>
+        <p id="#IOWN1.0とは"><h3>IOWN1.0とは</h3></p>
+        <p>先に説明したネットワークの個人ネットワークまでの道のり全てのルータやスイッチなどを光トランジスタを用いて低電力ネットワークデバイスに置き換えることです。</p>
+        <p>これによって超低遅延サービスと機器の省電力化をはかる計画です。</p>
+        <p>そしてこの計画は４段階あり、IOWN4.0になるとサーバ内部のチップまでも光化することでサーバさえも低消費電力化をすると言う計画です。</p>
+        <p></p>
+        <p id="#NTTが本当に万博で発表したいこと"><h3>NTTが本当に万博で発表したいこと</h3></p>
+        <p>NTTはIOWN APNの実演やその高速通信を利用したバーチャル会場の設置。またスマートシティーのようなストレスフリーな会場内回遊などを行うそうです。</p>
+        
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>

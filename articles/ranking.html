@@ -11,7 +11,7 @@
             const response = await fetch('/assets/articles.json');
             articlesData = await response.json();
         }
-        
+
         async function articles_json(value) {
             if (!articlesData) {
                 await loadArticlesData();
@@ -20,12 +20,15 @@
             return key;
         }
 
+        const list_rankig = [];
+
         fetch('https://script.google.com/macros/s/AKfycbyDdSAGPG3I1d0TBkyfi0ZVyAG-fPswQI_7k9rM2rz2GJYZUM_lDbcNoAuQuA4ObybR/exec?mode=list')
         .then(response => response.json())
         .then(async data => {
                 let textbox_element = document.getElementById('textbox');
                 for (i of data["value"]) {
                     let new_element = document.createElement('p');
+                    list_rankig.push(i[0]);
                     new_element.textContent = i[1];
 
                     let combined_element = document.createDocumentFragment();
@@ -34,8 +37,10 @@
                     combined_element.appendChild(new_element);
                     textbox_element.appendChild(combined_element);
                 }
+                console.log(list_rankig);
         })
         .catch(error => console.error('Error:', error));
+
     </script>
 </head>
 <body>

@@ -1,35 +1,164 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>AI開発のIT人材の育成について</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
-            fast();
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this, articles_number);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4>  セキュリティー系の人材育成について</h4></a>
+        <a href="#最近のサイバー攻撃事案"><h5>◯最近のサイバー攻撃事案</h5></a>
+        <a href="#サーバー攻撃の現状"><h5>◯サーバー攻撃の現状</h5></a>
+        <a href="#サイバーセキュリティ政策に関する国際的な動向"><h5>◯サイバーセキュリティ政策に関する国際的な動向</h5></a>
+        <a href="#これまでの施策の進捗状況"><h5>◯これまでの施策の進捗状況</h5></a>
+        <a href="#施策の進捗①（経済産業省におけるサイバーセキュリティ政策全体像）"><h5>◯施策の進捗①（経済産業省におけるサイバーセキュリティ政策全体像）</h5></a>
+        <a href="#施策の進捗②（サプライチェーン全体での対策強化に向けたガイドライン等の整備）"><h5>◯施策の進捗②（サプライチェーン全体での対策強化に向けたガイドライン等の整備）</h5></a>
+        <a href="#施策の進捗③（ガイドライン・各種施策の活用状況等）"><h5>◯施策の進捗③（ガイドライン・各種施策の活用状況等）</h5></a>
+    </div>
+
+    <h1 id="title">  セキュリティー系の人材育成について</h1>
+    <div id="maintext">
+        <p id="最近のサイバー攻撃事案"><h3>最近のサイバー攻撃事案</h3></p>
+        <p>国内では、機微技術情報などの窃取や工場等の機能停止、顧客情報等の漏えいやアクセス障害といったケースがあります。</p>
+        <p></p>
+        <p>そして海外では、国内と同じような工場等の機能停止や機微情報などの窃取、インフラの破壊などが挙げられます。</p>
+        <p id="サーバー攻撃の現状"><h3>サーバー攻撃の現状</h3></p>
+        <p></p>
+        <p>現状として挙げられるのが、ランサムウェアや被害が拡大するサプライチェーンの弱点を悪用した攻撃により、甚大な影響が生じており、特定の企業等を執拗に狙う「標的型攻撃」も大きな課題として挙げられています。</p>
+        <p>社会のデジタル化が進展している一方で技術の発展や地政学情勢の不安定化の影響もあり、サイバー攻撃は今後もっと高度化・複雑化していく恐れがあります。</p>
+        <p id="サイバーセキュリティ政策に関する国際的な動向"><h3>サイバーセキュリティ政策に関する国際的な動向</h3></p>
+        <p>欧米を中心にサイバーセキュリティ対策の強化に関する制度設備が加速しています。</p>
+        <p>これからは自社が提供する製品のサーバーセキュリティ対策について問われていく時代になると予測されています。</p>
+        <p id="これまでの施策の進捗状況"><h3>これまでの施策の進捗状況</h3></p>
+        <p></p>
+        <p>（前提）政府全体における経済産業省のこれまでの施策の位置付け</p>
+        <p></p>
+        <p>日本の産業界へのサイバー攻撃を抑制・防御し、事業活動への影響を最小化するための製作を企画・実行してる状況です。</p>
+        <p>政府全体として目指すべき「自由、公正かつ安全なサイバー空間」の確保に貢献しています。</p>
+        <p></p>
+        <p id="施策の進捗①（経済産業省におけるサイバーセキュリティ政策全体像）"><h3>施策の進捗①（経済産業省におけるサイバーセキュリティ政策全体像）</h3></p>
+        <p>以下の四つの柱の下、産業界におけるサイバーセキュリティ対策強化に向けた取り組みを推進しています。</p>
+        <p></p>
+        <p id="施策の進捗②（サプライチェーン全体での対策強化に向けたガイドライン等の整備）"><h3>施策の進捗②（サプライチェーン全体での対策強化に向けたガイドライン等の整備）</h3></p>
+        <p></p>
+        <p id="施策の進捗③（ガイドライン・各種施策の活用状況等）"><h3>施策の進捗③（ガイドライン・各種施策の活用状況等）</h3></p>
+        <p>IPAを通じた施策などにより、継続的にサイバーセキュリティ人材を育成することやまた、地域でのワークショップ等を通じ てセキュリティ・コミュニティ（地域SECUNITY）の形成を促進しています。</p>
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>

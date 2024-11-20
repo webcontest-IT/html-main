@@ -1,35 +1,169 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cooke</title>
+    <title>企業と高校生がタッグを組んで商品開発</title>
     <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
     <script>
         let filename;
         window.onload = async function() {
-            fast();
             filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
-            document.getElementById('filename').textContent = filename;
             console.log(filename);
-
-            // JSONファイルを非同期に読み込む
-            try {
-                const response = await fetch('path/to/articles.json');
-                const articles = await response.json();
-                console.log(articles);
-                // 必要に応じてDOMを更新
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-            }
+            load_articles_json();
         }
     </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
 </head>
-<body>
-    <h1 id="filename"></h1>
-    <button id="favorite_button" onclick="push_favorite();" style="background-color: transparent;border: none;">
-        <img id="img_favorite" src="../assets/images/no_favorite.png" alt="img_favorite" style="width: 192px;height: inherit;">
-    </button>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>IT系人材とは?</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this, articles_number);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4>企業と高校生がタッグを組んで商品開発</h4></a>
+        <a href="#デジタル内製人材育成"><h5>◯デジタル内製人材育成</h5></a>
+        <a href="#秋田県リアル工場ハッカソンNEXT"><h5>◯秋田県リアル工場ハッカソンNEXT</h5></a>
+        <a href="#実証結果"><h5>◯実証結果</h5></a>
+        <a href="#reference"><h5>◯参考文献</h5></a>
+    </div>
+
+    <h1 id="title">企業と高校生がタッグを組んで商品開発</h1>
+    <div id="maintext">
+        <p id="デジタル内製人材育成"><h3>デジタル内製人材育成</h3></p>
+        <p></p>
+        <p>ハンズオンセミナー形式</p>
+        <p>教材は無償貸与で一人当たり約２万円で行いました。</p>
+        <p>その結果、4ヵ年で200名以上を育成済みだそうです。</p>
+        <p>SIer脱却に向けてのIoT内製化への人材育成を行っており、さらに高みへといったことを目標に頑張っている最中です。</p>
+        <p></p>
+        <p>OSSのごとく自社の情報を公開しました。</p>
+        <p>複数のチームに別れて実際に開発を行い実践を経験し問題解決の定量的評価をしました。</p>
+        <p>予算規模は、60〜80万円で3チームでシェアし3つの異なるソリューションを作成することにより各チームやる気十分で、土日返上で開発を実行しました。</p>
+        <p></p>
+        <p>さらにハッカソン受講者が講師としてさらに新規技術者を育成！</p>
+        <p></p>
+        <p></p>
+        <p id="秋田県リアル工場ハッカソンNEXT"><h3>秋田県リアル工場ハッカソンNEXT</h3></p>
+        <p></p>
+        <p>リモート会議やEラーニングなどオンライン交流などで過去のハッカソン受講者や産技センター研修員が高校生の部活動をサポートすることにより、下記のことが期待できます。</p>
+        <p></p>
+        <p>・IT部活成果が直接的に地域企業のデジタル化にも貢献できることで、大会参加で勝利するのに匹敵するインセンティブ要因となり得ます。</p>
+        <p></p>
+        <p>・既に育成されている指導者レベルの産業界技術者が地元学校のIT部活の支援を行うことで、デジタルに精通した教師不足が補完できる可能性があります。</p>
+        <p>・地元企業の企業活動を知ることで、地元就業機会の創出にも寄与できると考えられています。(人材流出激しい秋田にはメリット大)</p>
+        <p>・生徒の全く異なる視点からの指摘が、産業界のハッカソンに新風を吹き込み、イノベーションを促進する可能性があります。</p>
+        <p>・産業界と教育界という異分野の相互関係・共創関係により、互いに化学変化・イノベーションが期待できると考えています。</p>
+        <p></p>
+        <p></p>
+        <p id="実証結果"><h3>実証結果</h3></p>
+        <p>本実証事業は講習からハッカソン、成果システム完成までの全行程をWebexやSlackなどのツールを用いたリモート環境下で実施しました。</p>
+        <p>入力ミスなどの些細な事象へのきめ細かい対応がリアルタイムに出来ないデメリットは感じられたが、それ以外に障壁を感じることはほぼ無かったそうです。</p>
+        <p>逆に、メンターが学校に赴く時間や手間などが省かれたため、在宅からも柔軟に対応することが可能であったため、実務や私用時間をさほど削がれることなく関わることができたメリットの方が大きかったそうです。</p>
+        <p>ビジネスチャットツールであるSlackを活用したことで、参加生徒が自宅から夜間に質問を問い合わせることも多く、気づいたメンターや他のハッカソン社会人チーム参加者などが、すみやかに回答するシーンも見られました。</p>
+        <p>ニューノーマルに対応したことで得られたメリットの方が大きいと感じられ、参加した各校からは、本事業と同等体制による生徒への活動支援の継続を希望される声も聞こえてきているが、その際のソリューション開発に必要となる機材とその調達に関わる資金、社会人メンターに対する報酬などの金銭面に対するケアが必要であると感じられました。</p>
+        
+    </div>
     <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+    </div>
 </body>
 </html>
