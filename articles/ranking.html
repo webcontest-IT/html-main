@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>読者反応</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
     <script>
+        let filename;
+        window.onload = async function() {
+            filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
+            console.log(filename);
+        }
+    </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
+    <script>
+
+
+
         let articlesData; // グローバル変数として定義
 
         async function loadArticlesData() {
@@ -20,37 +36,182 @@
             return key;
         }
 
+        
+        const cookies_list = document.cookie ? document.cookie.split('; ') : [];
+        const pages_cookies = cookies_list.filter(cookie => cookie.startsWith('pages'));
+        const last_cookies_number = pages_cookies.length > 0 
+            ? Math.max(...pages_cookies.map(cookie => parseInt(cookie.split('=')[0].substr(5)))) 
+            : 0;
+
+        console.log(document.cookie);
+
+        function add(text){
+            const tbl = document.querySelector('.cook_tab');
+            let tr = document.createElement("tr"); 
+            let td = document.createElement("td");     
+            let a = document.createTextNode(text);
+            td.appendChild(a);
+            tr.appendChild(td);
+            tbl.appendChild(tr);
+        }
+
         const list_rankig = [];
         const list_text = [];
 
         fetch('https://script.google.com/macros/s/AKfycbyDdSAGPG3I1d0TBkyfi0ZVyAG-fPswQI_7k9rM2rz2GJYZUM_lDbcNoAuQuA4ObybR/exec?mode=list')
         .then(response => response.json())
         .then(async data => {
-                let textbox_element = document.getElementById('textbox');
-                for (i of data["value"]) {
-                    let new_element = document.createElement('p');
-                    list_rankig.push(i[0]);
-                    list_text.push(i[1]);
+            console.log('Data fetched:', data); // ここでデータを確認
+            let textbox_element = document.getElementById('textbox');
+            for (i of data["value"]) {
+                let new_element = document.createElement('p');
+                list_rankig.push(i[0]);
+                list_text.push(i[1]);
+            }
+            // console.log(list_rankig,list_text);
+            let ranking_json = '['; // JSON配列の開始部分を追加
+            for (let i = 0; i < list_rankig.length-1; i++) {
+                ranking_json += `{"id":"${list_rankig[i]}","value":${list_text[i]}},`;
+            }
+            ranking_json += `{"id":"${list_rankig[list_rankig.length-1]}","value":${list_text[list_rankig.length-1]}}]`;
 
+            for (let i = 0; i < pages_cookies.length; i++){
+                if(await articles_json(pages_cookies[i].split('=')[1]) != "index"){
+                    add(await articles_json(pages_cookies[i].split('=')[1]));
                 }
-                console.log(list_rankig,list_text);
-                let ranking_json = '['; // JSON配列の開始部分を追加
-                for (let i = 0; i < list_rankig.length-1; i++) {
-                    ranking_json += `{"id":"${list_rankig[i]}","value":${list_text[i]}},`;
-                }
-                ranking_json += `{"id":"${list_rankig[list_rankig.length-1]}","value":${list_text[list_rankig.length-1]}}]`;
-                console.log(JSON.parse(ranking_json));
-                const items = JSON.parse(ranking_json);
-                items.sort((a, b) => a.value - b.value);
-                console.log(items);
+            }
 
+            // console.log(JSON.parse(ranking_json));
+            const items = JSON.parse(ranking_json);
+            items.sort((a, b) => a.value - b.value);
+            document.getElementById('fast').innerHTML = await articles_json(items[items.length-1].id);
+            document.getElementById('second').innerHTML = await articles_json(items[items.length-2].id);
+            document.getElementById('therd').innerHTML = await articles_json(items[items.length-3].id);
         })
         .catch(error => console.error('Error:', error));
 
     </script>
+    <style>
+        body {
+            background: RGB(188, 223, 245);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #main {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <p id="ranking_list"></p>
-    <p id="favorite_list"></p>
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./第四次産業として期待されている.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT企業の今後の動向.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./IT需要の変化.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="IT系の資格等.html">IT系の資格</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="main">
+        <h1>読者反応</h1>
+        <div id="ranking" style="position: relative;left: 50vh;">
+            <a style="display: flex;"><img src="/assets/images/hart_true.png" style="width: 6%;height: auto;"><h1>ランキング</h1></a>
+            <table border="1">
+                <tr>
+                    <td>1位</td>
+                    <td id="fast"></td>
+                </tr>
+                <tr>
+                    <td>2位</td>
+                    <td id="second"></td>
+                </tr>
+                <tr>
+                    <td>3位</td>
+                    <td id="therd"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="favorite" style="position: relative;left: 50vh;">
+            <a style="display: flex;"><img src="/assets/images/star_true.png" style="width: 6%;height: auto;"  /><h1>つけた記事</h1></a>
+            <table border="1" class="cook_tab">
+            </table>
+        </div>
+    </div>
 </body>
 </html>
