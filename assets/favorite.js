@@ -29,8 +29,8 @@ async function articles_json(value) {
 //   })
 //   .catch(error => console.error('Error:', error));
 
-function addURL() {
-    const url = "https://script.google.com/macros/s/AKfycbyDdSAGPG3I1d0TBkyfi0ZVyAG-fPswQI_7k9rM2rz2GJYZUM_lDbcNoAuQuA4ObybR/exec?mode=write&key=10000&value=1";
+function addURL(pageid) {
+    const url = `https://script.google.com/macros/s/AKfycbyDdSAGPG3I1d0TBkyfi0ZVyAG-fPswQI_7k9rM2rz2GJYZUM_lDbcNoAuQuA4ObybR/exec?mode=write&key=${pageid}&value=1`;
     fetch(url)
         .then(response => response.text())
         .then(data => {
@@ -40,8 +40,8 @@ function addURL() {
         .catch(error => console.error('Error:', error));
 }
 
-function delURL() {
-    const url = "https://script.google.com/macros/s/AKfycbyDdSAGPG3I1d0TBkyfi0ZVyAG-fPswQI_7k9rM2rz2GJYZUM_lDbcNoAuQuA4ObybR/exec?mode=write&key=10000&value=-1";
+function delURL(pageid) {
+    const url = `https://script.google.com/macros/s/AKfycbyDdSAGPG3I1d0TBkyfi0ZVyAG-fPswQI_7k9rM2rz2GJYZUM_lDbcNoAuQuA4ObybR/exec?mode=write&key=${pageid}&value=-1`;
     fetch(url)
         .then(response => response.text())
         .then(data => {
@@ -51,7 +51,7 @@ function delURL() {
         .catch(error => console.error('Error:', error));
 }
 
-function favorite_button() {
+function favorite_button(pageid) {
     var button = this;
     var isFavorite = button.getAttribute('data-favorite') === 'true';
     var img = button.querySelector('img');
@@ -59,11 +59,11 @@ function favorite_button() {
         button.setAttribute('data-favorite', 'false');
         img.src = '../assets/images/star_false.png'; // false画像に変更
         console.log('false');
-        delURL();
+        delURL(pageid);
     } else {
         button.setAttribute('data-favorite', 'true');
         img.src = '../assets/images/star_true.png'; // true画像に変更
         console.log('true');
-        addURL();
+        addURL(pageid);
     }
-};
+}
