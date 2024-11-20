@@ -21,6 +21,7 @@
         }
 
         const list_rankig = [];
+        const list_text = [];
 
         fetch('https://script.google.com/macros/s/AKfycbyDdSAGPG3I1d0TBkyfi0ZVyAG-fPswQI_7k9rM2rz2GJYZUM_lDbcNoAuQuA4ObybR/exec?mode=list')
         .then(response => response.json())
@@ -29,21 +30,27 @@
                 for (i of data["value"]) {
                     let new_element = document.createElement('p');
                     list_rankig.push(i[0]);
-                    new_element.textContent = i[1];
+                    list_text.push(i[1]);
 
-                    let combined_element = document.createDocumentFragment();
-                    combined_element.appendChild(document.createTextNode(await articles_json(i[0])));
-                    
-                    combined_element.appendChild(new_element);
-                    textbox_element.appendChild(combined_element);
                 }
-                console.log(list_rankig);
+                console.log(list_rankig,list_text);
+                let ranking_json = '['; // JSON配列の開始部分を追加
+                for (let i = 0; i < list_rankig.length-1; i++) {
+                    ranking_json += `{"id":"${list_rankig[i]}","value":${list_text[i]}},`;
+                }
+                ranking_json += `{"id":"${list_rankig[list_rankig.length-1]}","value":${list_text[list_rankig.length-1]}}]`;
+                console.log(JSON.parse(ranking_json));
+                const items = JSON.parse(ranking_json);
+                items.sort((a, b) => a.value - b.value);
+                console.log(items);
+
         })
         .catch(error => console.error('Error:', error));
 
     </script>
 </head>
 <body>
-    <p id="textbox"></p>
+    <p id="ranking_list"></p>
+    <p id="favorite_list"></p>
 </body>
 </html>
