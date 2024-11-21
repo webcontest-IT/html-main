@@ -78,6 +78,8 @@
             for (let i = 0; i < pages_cookies.length; i++){
                 if(await articles_json(pages_cookies[i].split('=')[1]) != "index"){
                     add(await articles_json(pages_cookies[i].split('=')[1]));
+                }else{
+                    add("星マークをつけてみてね！")
                 }
             }
 
@@ -190,8 +192,8 @@
 
     <div id="main">
         <h1>読者反応</h1>
-        <div id="ranking" style="position: relative;left: 50vh;">
-            <a style="display: flex;"><img src="/assets/images/hart_true.png" style="width: 6%;height: auto;"><h1>ランキング</h1></a>
+        <div id="ranking" style="position: relative;">
+            <a style="display: flex;"><img src="/assets/images/hart_true.png" style="width: 115px;height: auto;"><h1>ランキング</h1></a>
             <table border="1">
                 <tr>
                     <td>1位</td>
@@ -207,8 +209,8 @@
                 </tr>
             </table>
         </div>
-        <div id="favorite" style="position: relative;left: 50vh;">
-            <a style="display: flex;"><img src="/assets/images/star_true.png" style="width: 6%;height: auto;"  /><h1>つけた記事</h1></a>
+        <div id="favorite" style="position: relative;">
+            <a style="display: flex;"><img src="/assets/images/star_true.png" style="width: 115px;height: auto;"  /><h1>つけた記事</h1></a>
             <table border="1" class="cook_tab">
             </table>
         </div>
