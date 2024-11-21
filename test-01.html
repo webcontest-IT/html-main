@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.151.3/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.151.3/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+<body style="background:RGB(188, 223, 245);">
+    <div id="3D_screen"></div>
+    <h1>aaa</h1>
+    <script type="module">
+        // 1. Three.jsライブラリの読み込み
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+        // 2. シーンを作成する
+        const scene = new THREE.Scene();
+
+        // 3. カメラを作成する
+        const camera = new THREE.PerspectiveCamera(
+            75, // 視野角
+            window.innerWidth / window.innerHeight, // アスペクト比
+            0.1, // ニアクリップ面
+            1000 // ファークリップ面
+        );
+        camera.position.x = 0 // カメラの位置を設定する
+        camera.position.y = 2; // カメラの位置を設定する
+        camera.position.z = 3; // カメラの位置を設定する
+
+        // 4. レンダラーを作成する
+        const renderer = new THREE.WebGLRenderer({ alpha: true }); // alpha: trueを追加
+        renderer.setSize(800, 600);
+        camera.aspect = 800 / 600;
+        camera.updateProjectionMatrix();
+        document.getElementById('3D_screen').appendChild(renderer.domElement);
+
+        // AmbientLightを追加する
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(ambientLight);
+
+        // 5. GLTFLoaderを作成する
+        const loader = new GLTFLoader();
+        
+        const dracoLoader = new DRACOLoader(); // DRACOLoaderのインスタンスを作成
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+        loader.setDRACOLoader(dracoLoader); // GLTFLoaderにDRACOLoaderのインスタンスを提供
+
+        let model; // ロードされたモデルを保持する変数
+
+        // 6. 3Dモデルのロード＆描画
+        loader.load(
+            "assets/sozai1-2.gltf",
+            function (gltf) {
+                model = gltf.scene;
+                scene.add(model);
+            },
+            undefined,
+            function (error) {
+                console.error(error);
+            }
+        );
+
+        const animate = () => {
+            if (model) {
+                model.rotation.y += 0.01; // 左回転
+                model.rotation.y -= 0.005; // 右回転
+            }
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        };
+        animate();
+    </script>
+</body>
+</html>
