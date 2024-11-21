@@ -78,8 +78,8 @@
             for (let i = 0; i < pages_cookies.length; i++){
                 if(await articles_json(pages_cookies[i].split('=')[1]) != "index"){
                     add(await articles_json(pages_cookies[i].split('=')[1]));
-                }else{
-                    add("星マークをつけてみてね！")
+                } else if(pages_cookies[0].split('=')[1] == "10000"){
+                    add("星マークをつけてみてね！");
                 }
             }
 
@@ -125,7 +125,7 @@
             </tr>
             <tr>
             <td>|--</td>
-            <td><a href="./IT系人材とは.html"></a>系人材とは？</td>
+            <td><a href="./IT系人材とは.html"></a>IT系人材とは？</td>
             </tr>
         </table>
         <br>
@@ -191,9 +191,9 @@
     </div>
 
     <div id="main">
-        <h1>読者反応</h1>
+        <h1 id="title">読者反応</h1>
         <div id="ranking" style="position: relative;">
-            <a style="display: flex;"><img src="/assets/images/hart_true.png" style="width: 115px;height: auto;"><h1>ランキング</h1></a>
+            <a style="display: flex;"><img src="/assets/images/star_true.png" style="width: 115px;height: auto;"><h1>ランキング</h1></a>
             <table border="1">
                 <tr>
                     <td>1位</td>
@@ -210,7 +210,7 @@
             </table>
         </div>
         <div id="favorite" style="position: relative;">
-            <a style="display: flex;"><img src="/assets/images/star_true.png" style="width: 115px;height: auto;"  /><h1>つけた記事</h1></a>
+            <a style="display: flex;"><img src="/assets/images/hart_true.png" style="width: 115px;height: auto;"  /><h1>いいねした記事</h1></a>
             <table border="1" class="cook_tab">
             </table>
         </div>
