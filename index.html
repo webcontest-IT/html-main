@@ -100,11 +100,13 @@
         <h1>周りのITが作る、僕らの未来</h1>
         <div id="main_screen" style="display: flex;">
             <div id="3D_screen"></div>
-            <h1 id="centered-heading" style="position: relative;">README.md</h1>
+            <div style="position: relative;border: 4px solid;border-color:RGB(108, 157, 188);border-radius: 8px;background: white;padding: 10px;border-radius: 8px;color: black;height: 15pc;">
+                <h5 id="centered-heading">IT化が加速する現代において、IT業界は益々複雑化し、技術の発展と共にIT多様化が進んでおります。<br>そんな中身近なITに関して皆様はどれだけ知っているでしょうか<br>ITという言葉だけは知ってるって方が大半だと思います<br>本サイトではその身近なITについて様々な記事をまとめ親しみやすくしましたそれではご覧下さい</h5>
+            </div>
         </div>
         <h1 style="visibility: hidden;">m</h1>
         <a href="./articles/ranking.html" style="display: flex;justify-content: space-around;align-items: center;">
-            <button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button>
+            <div style="position: relative;border: 4px solid;border-color:RGB(108, 157, 188);border-radius: 8px;background: white;padding: 10px;border-radius: 8px;color: black;text-align: center;"><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
             <div style="position: relative;border: 4px solid;border-color:RGB(108, 157, 188);border-radius: 8px;background: white;padding: 10px;border-radius: 8px;color: black;text-align: center;">
                 <h3>読者感想</h3>
                 <img src="../website_image/ranking.png" alt="読者" style="height: 150px;width:auto;">
@@ -175,7 +177,7 @@
         animate();
     </script>
     <script>
-      document.getElementById('centered-heading').style.top = window.innerHeight/2 + 'px';
+      document.getElementById('centered-heading').style.top = window.innerHeight/3 + 'px';
     </script>
 </body>
 </html>
