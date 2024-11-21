@@ -38,8 +38,8 @@
 
         // 4. レンダラーを作成する
         const renderer = new THREE.WebGLRenderer({ alpha: true }); // alpha: trueを追加
-        renderer.setSize(800, 600);
-        camera.aspect = 800 / 600;
+        renderer.setSize(window.innerWidth/2, window.innerHeight/2);
+        camera.aspect = (window.innerWidth/2)/ (window.innerHeight/2);
         camera.updateProjectionMatrix();
         document.getElementById('3D_screen').appendChild(renderer.domElement);
 

@@ -12,6 +12,14 @@
     <script src="../assets/sidemap.js"></script>
     <script src="https://unpkg.com/three@0.142.0/build/three.min.js"></script>
     <script src="./main.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.151.3/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.151.3/examples/jsm/"
+        }
+      }
+    </script>
 </head>
 <body style="background:RGB(188, 223, 245);">
     <div id="top_label">
@@ -60,7 +68,7 @@
             </tr>
             <tr>
             <td>|--</td>
-            <td><a href="AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></td>
+            <td><a href="AI開発のIT��材の育成について.html">AI開発のIT人材の育成について</a></td>
             </tr>
             <tr>
             <td>|--</td>
@@ -92,23 +100,79 @@
             </tr>
         </table> 
     </div>
+    <main style="color: white;">
+        <h1 style="visibility:hidden">m</h1>
+        <h1>周りのITが作る、僕らの未来</h1>
+        <div id="main_screen" style="display: flex;">
+            <div id="3D_screen"></div>
+            <h1 id="centered-heading" style="position: relative;">README.md</h1>
+        </div>
+    </main>
+    <script type="module">
+        // 1. Three.jsライブラリの読み込み
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
-    <h1></h1>
-    <div id="textbox">
-        <p><a href="articles/AI開発のIT人材の育成について.html">AI開発のIT人材の育成について</a></p>
-        <p><a href="articles/IT企業の今後の動向.html">IT企業の今後の動向</a></p>
-        <p><a href="articles/IT系の資格等.html">IT系の資格等</a></p>
-        <p><a href="articles/IT需要の変化.html">IT需要の変化</a></p>
-        <p><a href="articles/NTTパビリオン×IOWN.html">NTTパビリオン×IOWN</a></p>
-        <p><a href="articles/インターンでの実際の企業の話.html">インターンでの実際の企業の話</a></p>
-        <p><a href="articles/セキュリティー系の人材育成について.html">セキュリティー系の人材育成について</a></p>
-        <p><a href="articles/つくば市におけるRPA導入共同研究.html">つくば市におけるRPA導入共同研究</a></p>
-        <p><a href="articles/企業と高校生がタッグを組んで商品開発.html">企業と高校生がタッグを組んで商品開発</a></p>
-        <p><a href="articles/小売市場へにも進むDXの流れ.html">小売市場へにも進むDXの流れ</a></p>
-        <p><a href="articles/第四次産業として期待されている.html">第四次産業として期待されている</a></p>
-        <p><a href="articles/日本と海外のIT系人材の給与水準の差.html">日本と海外のIT系人材の給与水準の差</a></p>
-        <p><a href="articles/ranking.html">ranking</a></p>
-        <p><a href="articles/mypage.html">mypage</a></p>
-    </div>
+        // 2. シーンを作成する
+        const scene = new THREE.Scene();
+
+        // 3. カメラを作成する
+        const camera = new THREE.PerspectiveCamera(
+            75, // 視野角
+            window.innerWidth / window.innerHeight, // アスペクト比
+            0.1, // ニアクリップ面
+            1000 // ファークリップ面
+        );
+        camera.position.x = 0 // カメラの位置を設定する
+        camera.position.y = 2; // カメラの位置を設定する
+        camera.position.z = 3; // カメラの位置を設定する
+
+        // 4. レンダラーを作成する
+        const renderer = new THREE.WebGLRenderer({ alpha: true }); // alpha: trueを追加
+        renderer.setSize(window.innerWidth/2, window.innerHeight/2);
+        camera.aspect = (window.innerWidth/2)/ (window.innerHeight/2);
+        camera.updateProjectionMatrix();
+        document.getElementById('3D_screen').appendChild(renderer.domElement);
+
+        // AmbientLightを追加する
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(ambientLight);
+
+        // 5. GLTFLoaderを作成する
+        const loader = new GLTFLoader();
+        
+        const dracoLoader = new DRACOLoader(); // DRACOLoaderのインスタンスを作成
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+        loader.setDRACOLoader(dracoLoader); // GLTFLoaderにDRACOLoaderのインスタンスを提供
+
+        let model; // ロードされたモデルを保持する変数
+
+        // 6. 3Dモデルのロード＆描画
+        loader.load(
+            "assets/sozai1-2.gltf",
+            function (gltf) {
+                model = gltf.scene;
+                scene.add(model);
+            },
+            undefined,
+            function (error) {
+                console.error(error);
+            }
+        );
+
+        const animate = () => {
+            if (model) {
+                model.rotation.y += 0.01; // 左回転
+                model.rotation.y -= 0.005; // 右回転
+            }
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        };
+        animate();
+    </script>
+    <script>
+      document.getElementById('centered-heading').style.top = window.innerHeight/2 + 'px';
+    </script>
 </body>
 </html>
