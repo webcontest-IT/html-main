@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT系人材とは</title>
+    <script src="../assets/cookie-favorite.js"></script>
+    <script src="../assets/favorite.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">    
+    <script>
+        let filename;
+        window.onload = async function() {
+            filename = decodeURIComponent(window.location.pathname.split("/").pop().replace('.html', ''));
+            console.log(filename);
+            load_articles_json();
+        }
+    </script>
+    <link rel="stylesheet" href="../assets/stylesheets/articles.css" type="text/css">
+    <link rel="stylesheet" href="../assets/stylesheets/sidemap.css" type="text/css">
+    <script src="../assets/sidemap.js"></script>
+</head>
+<body style="background:RGB(188, 223, 245);">
+    <div id="top_label">
+        <div><a href="../index.html"><img src="../assets/images/Web_log.png" alt="ロゴ画像" style="height: 50px;width:auto;"></a></div>
+        <div><br></div>
+        <div><button style="background-color: transparent;border: none;font-size: 20px;" id="button_sidemap">サイドマップ</button></div>
+    </div>
+
+
+    <div id="sidemap" style="display: none;">
+        <table border="0">
+            <a>ホーム</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="../index.html">ホーム画面</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./56974.html"></a>IT系人材とは?</td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>IT業界の期待</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./48682.html">第四次産業として期待されている</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./50441.html">IT企業の今後の動向</a></td>
+            </tr>
+        </table> 
+        <br>
+        <table border="0">
+            <a>人材不足の深刻度</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="./65610.html">IT需要の変化</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="./73083.html">日本と海外のIT系人材の給与水準の差</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="16362.html">AI開発のIT人材の育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="13824.html">セキュリティー系の人材育成について</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="92867.html">NTTパビリオン×IOWN</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="41202.html">小売市場へにも進むDXの流れ</a></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0">
+            <a>中高生からのIT人材育成</a>
+            <tr>
+            <td>|--</td>
+            <td><a href="65312.html">企業と高校生がタッグを組んで商品開発</a></td>
+            </tr>
+            <tr>
+            <td>|--</td>
+            <td><a href="34795.html">IT系の資格</a></td>
+            </tr>
+        </table> 
+    </div>
+
+    <div id="button_wrap">
+        <div id="button_content">
+            <button onclick="push_favorite();" style="background-color: transparent;border: none;">
+                <img id="img_good" src="../assets/images/hart_false.png" alt="img_good" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;margin: 2px auto;">いいね</h2>
+            </button>
+        </div>
+        <div id="button_content">
+            <button onclick="favorite_button.call(this, articles_number);"  style="background-color: transparent;border: none;" data-favorite="false">
+                <img src="../assets/images/star_false.png" alt="Favorite" style="width: 192px;height: inherit;">
+                <h2 style="text-align: center;">お気に入り</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="table_list">
+        <a href="#top"><h4>IT系人材とは</h4></a>
+        <a href="#デジタル内製人材育成"><h5>◯デジタル内製人材育成</h5></a>
+        <a href="#秋田県リアル工場ハッカソンNEXT"><h5>◯秋田県リアル工場ハッカソンNEXT</h5></a>
+        <a href="#実証結果"><h5>◯実証結果</h5></a>
+        <a href="#reference"><h5>◯参考文献</h5></a>
+    </div>
+
+    <h1 id="title">IT系人材とは</h1>
+    <div id="maintext">
+        <p></p>  
+    </div>
+    <br>
+    <div id="reference">
+        <h3>参考文献</h3>
+        <p>・企業と高校生がタッグを組んで商品開発</p>
+        <p>　https://www.meti.go.jp/shingikai/mono_info_service/digital_kanren_bukatsu/pdf/003_02_00.pdf</p>
+    </div>
+</body>
+</html>
